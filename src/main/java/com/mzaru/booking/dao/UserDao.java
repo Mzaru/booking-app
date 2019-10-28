@@ -3,6 +3,7 @@ package com.mzaru.booking.dao;
 import com.mzaru.booking.entity.User;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -20,14 +21,12 @@ public class UserDao implements IUserDao {
     private EntityManager entityManager;
 
     @Override
-    @Transactional
     public void addUser(User user) {
         Session session = entityManager.unwrap(Session.class);
         session.save(user);
     }
 
     @Override
-    @Transactional
     public List getAllUsers() {
         Session session = entityManager.unwrap(Session.class);
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
@@ -38,12 +37,21 @@ public class UserDao implements IUserDao {
     }
 
     @Override
-    @Transactional
     public void editUser(User user) {
         Session session = entityManager.unwrap(Session.class);
-        user.setId(session.bySimpleNaturalId(User.class).load(user.getLogin()).getId());
-        System.out.println(user);
-        session.clear();
         session.update(user);
+    }
+
+    @Override
+    public User getUserByLogin(User user) {
+        Session session = entityManager.unwrap(Session.class);
+        user = session.bySimpleNaturalId(User.class).load(user.getLogin());
+        return user;
+    }
+
+    @Override
+    public void deleteUser(User user) {
+        Session session = entityManager.unwrap(Session.class);
+        session.delete(user);
     }
 }

@@ -7,10 +7,12 @@ import java.util.List;
 
 public interface IUserService {
 
-    public void addUser(User user);
+    public void addUser(UserWrapper wrapper);
 
     public List getAllUsers();
 
     public void editUser(UserWrapper wrapper);
+
+    public void deleteUser(UserWrapper wrapper);
 
 }

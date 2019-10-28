@@ -11,4 +11,8 @@ public interface IUserDao {
     public List getAllUsers();
 
     public void editUser(User user);
+
+    public User getUserByLogin(User user);
+
+    public void deleteUser(User user);
 }

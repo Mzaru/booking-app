@@ -6,10 +6,7 @@ import com.mzaru.booking.wrapper.UserWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,8 +17,8 @@ public class UserController {
     private IUserService userService;
 
     @PostMapping(value = "/user/add")
-    public ResponseEntity addUser(@RequestBody User user) {
-        userService.addUser(user);
+    public ResponseEntity addUser(@RequestBody UserWrapper wrapper) {
+        userService.addUser(wrapper);
         return new ResponseEntity("Added", HttpStatus.OK);
     }
 
@@ -31,9 +28,15 @@ public class UserController {
         return new ResponseEntity(users, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/user/edit")
+    @PutMapping(value = "/user/edit")
     public ResponseEntity editUser(@RequestBody UserWrapper wrapper) {
         userService.editUser(wrapper);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "user/delete")
+    public ResponseEntity deleteUser(@RequestBody UserWrapper wrapper) {
+        userService.deleteUser(wrapper);
         return new ResponseEntity(HttpStatus.OK);
     }
 }
