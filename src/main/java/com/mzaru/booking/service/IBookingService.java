@@ -13,4 +13,8 @@ public interface IBookingService {
     public boolean isAvailable(Booking booking);
 
     public List scheduleForAll(LocalDateTime start, LocalDateTime end);
+
+    public List scheduleForRoom(String room_name, LocalDateTime start, LocalDateTime end);
+
+    public List scheduleForUser(String user_login, LocalDateTime start, LocalDateTime end);
 }

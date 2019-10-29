@@ -1,14 +1,16 @@
 package com.mzaru.booking.dao;
 
 import com.mzaru.booking.dto.BookingDto;
+import com.mzaru.booking.dto.ScheduleDto;
 import com.mzaru.booking.entity.Booking;
+import com.mzaru.booking.entity.Room;
 import com.mzaru.booking.entity.User;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -46,16 +48,48 @@ public class BookingDao implements IBookingDao {
     @Override
     public List scheduleForAll(LocalDateTime start, LocalDateTime end) {
         Session session = entityManager.unwrap(Session.class);
-        Query query;
+        Query<ScheduleDto> query;
         if (start == null && end == null) {
-            query = session.createQuery("SELECT B.start, B.end, B.user.name, B.room.name FROM Booking B");
+            query = session.createQuery("SELECT new com.mzaru.booking.dto.ScheduleDto(B.start, B.end, B.user.name, B.user.surname, B.room.name) FROM Booking B");
         } else if (start == null) {
-            query = session.createQuery("SELECT B.start, B.end, B.user.name, B.room.name FROM Booking B WHERE B.end <= :end").setParameter("end", end);
+            query = session.createQuery("SELECT new com.mzaru.booking.dto.ScheduleDto(B.start, B.end, B.user.name, B.user.surname, B.room.name) FROM Booking B WHERE B.end <= :end").setParameter("end", end);
         } else if (end == null) {
-            query = session.createQuery("SELECT B.start, B.end, B.user.name, B.room.name FROM Booking B WHERE B.start >= :start").setParameter("start", start);
+            query = session.createQuery("SELECT new com.mzaru.booking.dto.ScheduleDto(B.start, B.end, B.user.name, B.user.surname, B.room.name) FROM Booking B WHERE B.start >= :start").setParameter("start", start);
         } else {
-            query = session.createQuery("SELECT B.start, B.end, B.user.name, B.room.name FROM Booking B WHERE B.start >= :start AND B.end <= :end").setParameter("start", start).setParameter("end", end);
+            query = session.createQuery("SELECT new com.mzaru.booking.dto.ScheduleDto(B.start, B.end, B.user.name, B.user.surname, B.room.name) FROM Booking B WHERE B.start >= :start AND B.end <= :end").setParameter("start", start).setParameter("end", end);
         }
-        return query.getResultList();
+        return query.list();
+    }
+
+    @Override
+    public List scheduleForRoom(Room room, LocalDateTime start, LocalDateTime end) {
+        Session session = entityManager.unwrap(Session.class);
+        Query<ScheduleDto> query;
+        if (start == null && end == null) {
+            query = session.createQuery("SELECT new com.mzaru.booking.dto.ScheduleDto(B.start, B.end, B.user.name, B.user.surname, B.room.name) FROM Booking B WHERE B.room = :room").setParameter("room", room);
+        } else if (start == null) {
+            query = session.createQuery("SELECT new com.mzaru.booking.dto.ScheduleDto(B.start, B.end, B.user.name, B.user.surname, B.room.name) FROM Booking B WHERE B.room = :room AND B.end <= :end").setParameter("end", end).setParameter("room", room);
+        } else if (end == null) {
+            query = session.createQuery("SELECT new com.mzaru.booking.dto.ScheduleDto(B.start, B.end, B.user.name, B.user.surname, B.room.name) FROM Booking B WHERE B.room = :room AND B.start >= :start").setParameter("start", start).setParameter("room", room);
+        } else {
+            query = session.createQuery("SELECT new com.mzaru.booking.dto.ScheduleDto(B.start, B.end, B.user.name, B.user.surname, B.room.name) FROM Booking B WHERE B.room = :room AND (B.start >= :start AND B.end <= :end)").setParameter("start", start).setParameter("end", end).setParameter("room", room);
+        }
+        return query.list();
+    }
+
+    @Override
+    public List scheduleForUser(User user, LocalDateTime start, LocalDateTime end) {
+        Session session = entityManager.unwrap(Session.class);
+        Query<ScheduleDto> query;
+        if (start == null && end == null) {
+            query = session.createQuery("SELECT new com.mzaru.booking.dto.ScheduleDto(B.start, B.end, B.user.name, B.user.surname, B.room.name) FROM Booking B WHERE B.user = :user").setParameter("user", user);
+        } else if (start == null) {
+            query = session.createQuery("SELECT new com.mzaru.booking.dto.ScheduleDto(B.start, B.end, B.user.name, B.user.surname, B.room.name) FROM Booking B WHERE B.user = :user AND B.end <= :end").setParameter("user", user).setParameter("end", end);
+        } else if (end == null) {
+            query = session.createQuery("SELECT new com.mzaru.booking.dto.ScheduleDto(B.start, B.end, B.user.name, B.user.surname, B.room.name) FROM Booking B WHERE B.user = :user AND B.start >= :start").setParameter("start", start).setParameter("user", user);
+        } else {
+            query = session.createQuery("SELECT new com.mzaru.booking.dto.ScheduleDto(B.start, B.end, B.user.name, B.user.surname, B.room.name) FROM Booking B WHERE B.user = :user AND (B.start >= :start AND B.end <= :end)").setParameter("start", start).setParameter("user", user).setParameter("end", end);
+        }
+        return query.list();
     }
 }

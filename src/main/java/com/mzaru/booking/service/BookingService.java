@@ -3,6 +3,8 @@ package com.mzaru.booking.service;
 import com.mzaru.booking.dao.IBookingDao;
 import com.mzaru.booking.entity.Booking;
 import com.mzaru.booking.dto.BookingDto;
+import com.mzaru.booking.entity.Room;
+import com.mzaru.booking.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -51,5 +53,18 @@ public class BookingService implements IBookingService {
     @Transactional
     public List scheduleForAll(LocalDateTime start, LocalDateTime end) {
         return bookingDao.scheduleForAll(start, end);
+    }
+
+    @Override
+    @Transactional
+    public List scheduleForRoom(String room_name, LocalDateTime start, LocalDateTime end) {
+        Room room = roomService.getRoomByName(room_name);
+        return bookingDao.scheduleForRoom(room, start, end);
+    }
+
+    @Override
+    public List scheduleForUser(String user_login, LocalDateTime start, LocalDateTime end) {
+        User user = userService.getUserByLogin(user_login);
+        return bookingDao.scheduleForUser(user, start, end);
     }
 }
