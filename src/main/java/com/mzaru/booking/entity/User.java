@@ -6,6 +6,8 @@ import org.hibernate.annotations.NaturalId;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -37,6 +39,13 @@ public class User {
     @Size(min = 6, max = 50)
     private String password;
 
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Booking> bookings = new ArrayList<>();
+
     public User() {
     }
 
@@ -47,6 +56,13 @@ public class User {
         this.login = login;
     }
 
+    public User(@NotNull(message = "field is required") @Size(min = 1, max = 50) String name, @NotNull(message = "field is required") @Size(min = 1, max = 100) String surname, @NotNull(message = "field is required") @Size(min = 1, max = 100) String login, @NotNull(message = "field is required") @Size(min = 6, max = 50) String password, List<Booking> bookings) {
+        this.name = name;
+        this.surname = surname;
+        this.login = login;
+        this.password = password;
+        this.bookings = bookings;
+    }
 
     public long getId() {
         return id;
@@ -86,6 +102,24 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
+    public void addBooking(Booking booking) {
+        bookings.add(booking);
+        booking.setUser(this);
+    }
+
+    public void removeBooking(Booking booking) {
+        bookings.remove(booking);
+        booking.setUser(null);
     }
 
     @Override

@@ -43,9 +43,9 @@ public class UserDao implements IUserDao {
     }
 
     @Override
-    public User getUserByLogin(User user) {
+    public User getUserByLogin(String login) {
         Session session = entityManager.unwrap(Session.class);
-        user = session.bySimpleNaturalId(User.class).load(user.getLogin());
+        User user = session.bySimpleNaturalId(User.class).load(login);
         return user;
     }
 

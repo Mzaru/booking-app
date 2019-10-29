@@ -33,9 +33,9 @@ public class RoomDao implements IRoomDao {
     }
 
     @Override
-    public Room getRoomByName(Room room) {
+    public Room getRoomByName(String name) {
         Session session = entityManager.unwrap(Session.class);
-        room = session.bySimpleNaturalId(Room.class).load(room.getName());
+        Room room = session.bySimpleNaturalId(Room.class).load(name);
         return room;
     }
 

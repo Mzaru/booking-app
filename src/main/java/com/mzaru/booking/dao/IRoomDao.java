@@ -12,7 +12,7 @@ public interface IRoomDao {
 
     public void editRoom(Room room);
 
-    public Room getRoomByName(Room room);
+    public Room getRoomByName(String name);
 
     public void deleteRoom(Room room);
 }

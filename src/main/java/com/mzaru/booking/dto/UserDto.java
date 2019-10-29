@@ -1,12 +1,12 @@
-package com.mzaru.booking.wrapper;
+package com.mzaru.booking.dto;
 
 import com.mzaru.booking.entity.User;
 
-public class UserWrapper {
+public class UserDto {
     private User user;
     private String password;
 
-    public UserWrapper(User user, String password) {
+    public UserDto(User user, String password) {
         this.user = user;
         this.password = password;
     }

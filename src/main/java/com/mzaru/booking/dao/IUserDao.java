@@ -12,7 +12,7 @@ public interface IUserDao {
 
     public void editUser(User user);
 
-    public User getUserByLogin(User user);
+    public User getUserByLogin(String login);
 
     public void deleteUser(User user);
 }

@@ -9,9 +9,11 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@JsonInclude
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Room {
 
     @Id
@@ -42,6 +44,13 @@ public class Room {
     @Size(max = 100)
     private String phoneNumber;
 
+    @OneToMany(
+            mappedBy = "room",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Booking> bookings = new ArrayList<>();
+
     public Room() {
     }
 
@@ -51,6 +60,15 @@ public class Room {
         this.seats = seats;
         this.hasProjector = hasProjector;
         this.phoneNumber = phoneNumber;
+    }
+
+    public Room(@NotNull(message = "field is required") @Size(min = 1, max = 50) String name, @Size(max = 256) String location, @NotNull(message = "field is required") @Min(1) @Max(100) Integer seats, Boolean hasProjector, @Size(max = 100) String phoneNumber, List<Booking> bookings) {
+        this.name = name;
+        this.location = location;
+        this.seats = seats;
+        this.hasProjector = hasProjector;
+        this.phoneNumber = phoneNumber;
+        this.bookings = bookings;
     }
 
     public long getId() {
@@ -99,5 +117,23 @@ public class Room {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
+    public void addBooking(Booking booking) {
+        bookings.add(booking);
+        booking.setRoom(this);
+    }
+
+    public void deleteBooking(Booking booking) {
+        bookings.remove(booking);
+        booking.setRoom(null);
     }
 }

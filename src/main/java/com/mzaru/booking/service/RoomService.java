@@ -2,7 +2,7 @@ package com.mzaru.booking.service;
 
 import com.mzaru.booking.dao.IRoomDao;
 import com.mzaru.booking.entity.Room;
-import com.mzaru.booking.wrapper.RoomWrapper;
+import com.mzaru.booking.dto.RoomDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class RoomService implements IRoomService {
 
     @Override
     @Transactional
-    public void addRoom(RoomWrapper wrapper) {
+    public void addRoom(RoomDto wrapper) {
         if (wrapper.getPassword().equals(env.getProperty("admin.password"))) {
             if (wrapper.getRoom().getHasProjector() == null) {
                 wrapper.getRoom().setHasProjector(Boolean.FALSE);
@@ -40,9 +40,9 @@ public class RoomService implements IRoomService {
 
     @Override
     @Transactional
-    public void editRoom(RoomWrapper wrapper) {
+    public void editRoom(RoomDto wrapper) {
         if (wrapper.getPassword().equals(env.getProperty("admin.password"))) {
-            Room room = roomDao.getRoomByName(wrapper.getRoom());
+            Room room = getRoomByName(wrapper.getRoom().getName());
             NullBeanUtils.copyNotNullProperties(wrapper.getRoom(), room);
             roomDao.editRoom(room);
         } else {
@@ -52,12 +52,18 @@ public class RoomService implements IRoomService {
 
     @Override
     @Transactional
-    public void deleteRoom(RoomWrapper wrapper) {
+    public void deleteRoom(RoomDto wrapper) {
         if (wrapper.getPassword().equals(env.getProperty("admin.password"))) {
-            Room room = roomDao.getRoomByName(wrapper.getRoom());
+            Room room = getRoomByName(wrapper.getRoom().getName());
             roomDao.deleteRoom(room);
         } else {
             System.out.println("Wrong password");
         }
+    }
+
+    @Override
+    @Transactional
+    public Room getRoomByName(String name) {
+        return roomDao.getRoomByName(name);
     }
 }

@@ -1,18 +1,22 @@
 package com.mzaru.booking.service;
 
 import com.mzaru.booking.entity.User;
-import com.mzaru.booking.wrapper.UserWrapper;
+import com.mzaru.booking.dto.UserDto;
 
 import java.util.List;
 
 public interface IUserService {
 
-    public void addUser(UserWrapper wrapper);
+    public void addUser(UserDto wrapper);
 
     public List getAllUsers();
 
-    public void editUser(UserWrapper wrapper);
+    public void editUser(UserDto wrapper);
 
-    public void deleteUser(UserWrapper wrapper);
+    public void deleteUser(UserDto wrapper);
+
+    public boolean checkPassword(User user);
+
+    public User getUserByLogin(String login);
 
 }

@@ -1,12 +1,12 @@
-package com.mzaru.booking.wrapper;
+package com.mzaru.booking.dto;
 
 import com.mzaru.booking.entity.Room;
 
-public class RoomWrapper {
+public class RoomDto {
     private Room room;
     private String password;
 
-    public RoomWrapper(Room room, String password) {
+    public RoomDto(Room room, String password) {
         this.room = room;
         this.password = password;
     }

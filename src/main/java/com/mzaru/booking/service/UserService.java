@@ -2,7 +2,7 @@ package com.mzaru.booking.service;
 
 import com.mzaru.booking.dao.IUserDao;
 import com.mzaru.booking.entity.User;
-import com.mzaru.booking.wrapper.UserWrapper;
+import com.mzaru.booking.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional
-    public void addUser(UserWrapper wrapper) {
+    public void addUser(UserDto wrapper) {
         if (wrapper.getPassword().equals(env.getProperty("admin.password"))) {
             userDao.addUser(wrapper.getUser());
         } else {
@@ -36,9 +36,9 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional
-    public void editUser(UserWrapper wrapper) {
+    public void editUser(UserDto wrapper) {
         if (wrapper.getPassword().equals(env.getProperty("admin.password"))) {
-            User user = userDao.getUserByLogin(wrapper.getUser());
+            User user = getUserByLogin(wrapper.getUser().getLogin());
             NullBeanUtils.copyNotNullProperties(wrapper.getUser(), user);
             userDao.editUser(user);
         } else {
@@ -48,12 +48,25 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional
-    public void deleteUser(UserWrapper wrapper) {
+    public void deleteUser(UserDto wrapper) {
         if (wrapper.getPassword().equals(env.getProperty("admin.password"))) {
-            User user = userDao.getUserByLogin(wrapper.getUser());
+            User user = getUserByLogin(wrapper.getUser().getLogin());
             userDao.deleteUser(user);
         } else {
             System.out.println("Wrong password");
         }
+    }
+
+    @Override
+    @Transactional
+    public boolean checkPassword(User user) {
+        String password = getUserByLogin(user.getLogin()).getPassword();
+        return user.getPassword().equals(password);
+    }
+
+    @Override
+    @Transactional
+    public User getUserByLogin(String login) {
+        return userDao.getUserByLogin(login);
     }
 }
