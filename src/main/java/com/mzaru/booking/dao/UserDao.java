@@ -1,9 +1,7 @@
 package com.mzaru.booking.dao;
 
 import com.mzaru.booking.entity.User;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -11,7 +9,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository

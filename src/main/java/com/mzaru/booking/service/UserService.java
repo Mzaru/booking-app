@@ -1,16 +1,17 @@
 package com.mzaru.booking.service;
 
-import com.mzaru.booking.validator.UserValidator;
 import com.mzaru.booking.dao.IUserDao;
-import com.mzaru.booking.entity.User;
 import com.mzaru.booking.dto.UserDto;
+import com.mzaru.booking.entity.User;
+import com.mzaru.booking.exception.WrongAdminPasswordException;
 import com.mzaru.booking.exception.user.UserAlreadyExistsException;
 import com.mzaru.booking.exception.user.UserNotFoundException;
-import com.mzaru.booking.exception.WrongAdminPasswordException;
+import com.mzaru.booking.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import util.NullBeanUtils;
+
 import javax.transaction.Transactional;
 import java.util.List;
 

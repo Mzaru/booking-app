@@ -1,6 +1,5 @@
 package com.mzaru.booking.dao;
 
-import com.mzaru.booking.dto.BookingDto;
 import com.mzaru.booking.dto.ScheduleDto;
 import com.mzaru.booking.entity.Booking;
 import com.mzaru.booking.entity.Room;
@@ -11,9 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
 import java.util.List;
 

@@ -1,8 +1,8 @@
 package com.mzaru.booking.service;
 
 import com.mzaru.booking.dao.IBookingDao;
-import com.mzaru.booking.entity.Booking;
 import com.mzaru.booking.dto.BookingDto;
+import com.mzaru.booking.entity.Booking;
 import com.mzaru.booking.entity.Room;
 import com.mzaru.booking.entity.User;
 import com.mzaru.booking.exception.booking.BookingPeriodNotAvailableException;

@@ -2,14 +2,12 @@ package com.mzaru.booking.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.hibernate.annotations.NaturalId;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity

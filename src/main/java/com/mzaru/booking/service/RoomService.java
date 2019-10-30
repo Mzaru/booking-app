@@ -1,8 +1,8 @@
 package com.mzaru.booking.service;
 
 import com.mzaru.booking.dao.IRoomDao;
-import com.mzaru.booking.entity.Room;
 import com.mzaru.booking.dto.RoomDto;
+import com.mzaru.booking.entity.Room;
 import com.mzaru.booking.exception.WrongAdminPasswordException;
 import com.mzaru.booking.exception.room.RoomAlreadyExistsException;
 import com.mzaru.booking.exception.room.RoomNotFoundException;

@@ -1,7 +1,7 @@
 package com.mzaru.booking.controller;
 
-import com.mzaru.booking.service.IUserService;
 import com.mzaru.booking.dto.UserDto;
+import com.mzaru.booking.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

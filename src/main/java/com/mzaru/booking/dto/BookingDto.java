@@ -1,6 +1,5 @@
 package com.mzaru.booking.dto;
 
-import com.mzaru.booking.entity.Booking;
 import com.mzaru.booking.entity.User;
 import org.springframework.format.annotation.DateTimeFormat;
 

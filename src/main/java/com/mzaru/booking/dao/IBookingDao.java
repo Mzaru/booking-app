@@ -1,6 +1,5 @@
 package com.mzaru.booking.dao;
 
-import com.mzaru.booking.dto.BookingDto;
 import com.mzaru.booking.entity.Booking;
 import com.mzaru.booking.entity.Room;
 import com.mzaru.booking.entity.User;

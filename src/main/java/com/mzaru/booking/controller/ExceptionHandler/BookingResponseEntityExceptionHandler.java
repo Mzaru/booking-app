@@ -1,16 +1,16 @@
 package com.mzaru.booking.controller.ExceptionHandler;
 
 import com.mzaru.booking.dto.ErrorDto;
+import com.mzaru.booking.exception.WrongAdminPasswordException;
 import com.mzaru.booking.exception.booking.BookingPeriodNotAvailableException;
 import com.mzaru.booking.exception.room.RoomAlreadyExistsException;
 import com.mzaru.booking.exception.room.RoomNotFoundException;
+import com.mzaru.booking.exception.user.UserAlreadyExistsException;
 import com.mzaru.booking.exception.user.UserNotFoundException;
-import com.mzaru.booking.exception.WrongAdminPasswordException;
 import com.mzaru.booking.exception.user.WrongUserLoginOrPasswordException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.TransactionSystemException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -38,6 +38,13 @@ public class BookingResponseEntityExceptionHandler extends ResponseEntityExcepti
         ErrorDto errorDetails = new ErrorDto(LocalDateTime.now(), ex.getMessage(),
                 request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public final ResponseEntity<ErrorDto> handleUserAlreadyExistsException(UserAlreadyExistsException ex, WebRequest request) {
+        ErrorDto errorDetails = new ErrorDto(LocalDateTime.now(), ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(WrongAdminPasswordException.class)
