@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Repository
@@ -23,7 +26,11 @@ public class RoomDao implements IRoomDao {
     @Override
     public List getAllRooms() {
         Session session = entityManager.unwrap(Session.class);
-        return session.createQuery("from Room").getResultList();
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Room> query = cb.createQuery(Room.class);
+        Root<Room> roomRoot = query.from(Room.class);
+        query.multiselect(roomRoot.get("id"), roomRoot.get("name"), roomRoot.get("location"), roomRoot.get("seats"), roomRoot.get("hasProjector"), roomRoot.get("phoneNumber"));
+        return session.createQuery(query).getResultList();
     }
 
     @Override

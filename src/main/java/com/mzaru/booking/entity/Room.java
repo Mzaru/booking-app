@@ -49,12 +49,13 @@ public class Room {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<Booking> bookings = new ArrayList<>();
+    private List<Booking> bookings;
 
     public Room() {
     }
 
-    public Room(@NotNull(message = "field is required") @Size(min = 1, max = 50) String name, @Size(max = 256) String location, @NotNull(message = "field is required") @Min(1) @Max(100) Integer seats, boolean hasProjector, @Size(max = 100) String phoneNumber) {
+    public Room(long id, @NotNull(message = "field is required") @Size(min = 1, max = 50) String name, @Size(max = 256) String location, @NotNull(message = "field is required") @Min(1) @Max(100) Integer seats, boolean hasProjector, @Size(max = 100) String phoneNumber) {
+        this.id = id;
         this.name = name;
         this.location = location;
         this.seats = seats;
@@ -62,7 +63,8 @@ public class Room {
         this.phoneNumber = phoneNumber;
     }
 
-    public Room(@NotNull(message = "field is required") @Size(min = 1, max = 50) String name, @Size(max = 256) String location, @NotNull(message = "field is required") @Min(1) @Max(100) Integer seats, Boolean hasProjector, @Size(max = 100) String phoneNumber, List<Booking> bookings) {
+    public Room(long id, @NotNull(message = "field is required") @Size(min = 1, max = 50) String name, @Size(max = 256) String location, @NotNull(message = "field is required") @Min(1) @Max(100) Integer seats, Boolean hasProjector, @Size(max = 100) String phoneNumber, List<Booking> bookings) {
+        this.id = id;
         this.name = name;
         this.location = location;
         this.seats = seats;

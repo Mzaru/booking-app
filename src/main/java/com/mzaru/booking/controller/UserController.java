@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -16,25 +17,25 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
-    @PostMapping(value = "/add")
-    public ResponseEntity addUser(@RequestBody UserDto wrapper) {
+    @PostMapping
+    public ResponseEntity addUser(@Valid @RequestBody UserDto wrapper) {
         userService.addUser(wrapper);
         return new ResponseEntity("Added", HttpStatus.OK);
     }
 
-    @GetMapping(value = "/getAll")
+    @GetMapping(value = "/all")
     public ResponseEntity getAllUsers() {
         List users = userService.getAllUsers();
         return new ResponseEntity(users, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/edit")
+    @PutMapping
     public ResponseEntity editUser(@RequestBody UserDto wrapper) {
         userService.editUser(wrapper);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/delete")
+    @DeleteMapping
     public ResponseEntity deleteUser(@RequestBody UserDto wrapper) {
         userService.deleteUser(wrapper);
         return new ResponseEntity(HttpStatus.OK);

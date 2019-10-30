@@ -16,25 +16,25 @@ public class RoomController {
     @Autowired
     private IRoomService roomService;
 
-    @PostMapping(value = "/add")
+    @PostMapping
     public ResponseEntity addRoom(@RequestBody RoomDto wrapper) {
         roomService.addRoom(wrapper);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping(value = "/getAll")
+    @GetMapping(value = "/all")
     public ResponseEntity getAllRooms() {
         List rooms = roomService.getAllRooms();
         return new ResponseEntity(rooms, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/edit")
+    @PutMapping
     public ResponseEntity editRoom(@RequestBody RoomDto wrapper) {
         roomService.editRoom(wrapper);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/delete")
+    @DeleteMapping
     public ResponseEntity deleteRoom(@RequestBody RoomDto wrapper) {
         roomService.deleteRoom(wrapper);
         return new ResponseEntity(HttpStatus.OK);
