@@ -5,6 +5,8 @@ import com.mzaru.booking.entity.Booking;
 import com.mzaru.booking.dto.BookingDto;
 import com.mzaru.booking.entity.Room;
 import com.mzaru.booking.entity.User;
+import com.mzaru.booking.exception.booking.BookingPeriodNotAvailableException;
+import com.mzaru.booking.exception.user.WrongUserLoginOrPasswordException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,9 @@ public class BookingService implements IBookingService {
     @Override
     @Transactional
     public void addBooking(BookingDto wrapper) {
+        if (!userService.correctPassword(wrapper.getUser())) {
+            throw new WrongUserLoginOrPasswordException("Incorrect username or password entered");
+        }
         Booking booking = new Booking();
         booking.setUser(userService.getUserByLogin(wrapper.getUser().getLogin()));
         booking.setRoom(roomService.getRoomByName(wrapper.getRoom_name()));
@@ -39,7 +44,7 @@ public class BookingService implements IBookingService {
         if (isAvailable(booking)) {
             bookingDao.addBooking(booking);
         } else {
-            System.out.println("Not available");
+            throw new BookingPeriodNotAvailableException(String.format("The period from %s to %s is not available for booking", booking.getStart(), booking.getEnd()));
         }
     }
 

@@ -15,7 +15,7 @@ public interface IUserService {
 
     public void deleteUser(UserDto wrapper);
 
-    public boolean checkPassword(User user);
+    public boolean correctPassword(User user);
 
     public User getUserByLogin(String login);
 

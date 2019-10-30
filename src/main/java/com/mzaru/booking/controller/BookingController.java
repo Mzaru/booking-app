@@ -22,7 +22,7 @@ public class BookingController {
     @PostMapping
     public ResponseEntity addBooking(@RequestBody BookingDto wrapper) {
         bookingService.addBooking(wrapper);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/all")

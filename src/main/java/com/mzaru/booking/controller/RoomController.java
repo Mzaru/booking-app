@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,9 +18,9 @@ public class RoomController {
     private IRoomService roomService;
 
     @PostMapping
-    public ResponseEntity addRoom(@RequestBody RoomDto wrapper) {
+    public ResponseEntity addRoom(@Valid @RequestBody RoomDto wrapper) {
         roomService.addRoom(wrapper);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/all")

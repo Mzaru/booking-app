@@ -20,7 +20,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity addUser(@Valid @RequestBody UserDto wrapper) {
         userService.addUser(wrapper);
-        return new ResponseEntity("Added", HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/all")
