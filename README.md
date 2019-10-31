@@ -11,3 +11,8 @@ How to run the app
 - After the Application has been built call `mvn spring-boot:run`
 
 After all these steps the Application should boot and after a few seconds you should be ready to go.
+
+Services documentation
+=======================
+https://documenter.getpostman.com/view/9285559/SW12zHFG?version=latest
+
