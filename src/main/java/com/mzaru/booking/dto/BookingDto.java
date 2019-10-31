@@ -1,7 +1,7 @@
 package com.mzaru.booking.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mzaru.booking.entity.User;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -10,10 +10,10 @@ public class BookingDto {
 
     private String room_name;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime start;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime end;
 
     public BookingDto(User user, String room_name, LocalDateTime start, LocalDateTime end) {

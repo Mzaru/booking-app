@@ -23,7 +23,7 @@ public class RoomService implements IRoomService {
     @Autowired
     private Environment env;
     @Autowired
-    RoomValidator validator;
+    private RoomValidator validator;
 
     @Override
     @Transactional
