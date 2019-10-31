@@ -12,7 +12,7 @@ How to run the app
 
 After all these steps the Application should boot and after a few seconds you should be ready to go.
 
-Services documentation
+Documentation
 =======================
-https://documenter.getpostman.com/view/9285559/SW12zHFG?version=latest
+https://documenter.getpostman.com/view/9285559/SW12zHFG
 
